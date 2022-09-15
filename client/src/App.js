@@ -3,6 +3,9 @@ import { Container, AppBar, Typeography, Grow, Grid, Typography } from "@materia
 
 import memories from './images/memories.png'
 
+import Posts from './components/Posts/Posts';
+import Form from './components/Form/Form';
+
 const App = () => {
     return (
         <Container maxwidth="lg">
