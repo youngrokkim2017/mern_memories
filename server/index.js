@@ -8,12 +8,12 @@ import postRoutes from './routes/posts.js';
 
 const app = express();
 
-// routes
-app.use('/posts', postRoutes);
-
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
+
+// routes
+app.use('/posts', postRoutes);
 
 // mongodb atlas
 const CONNECTION_URL = process.env.MONGODB_URL
