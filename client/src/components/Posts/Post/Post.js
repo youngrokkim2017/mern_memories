@@ -7,13 +7,11 @@ import moment from 'moment';
 
 import useStyles from './styles';
 
-const Post = ({ post }) => {
+const Post = ({ post, setCurrentId }) => {
     const classes = useStyles();
     
     return (
-        <Card
-            className={classes.card}
-        >
+        <Card className={classes.card}>
             <CardMedia 
                 className={classes.media} 
                 image={post.seletedFile} 
@@ -30,7 +28,7 @@ const Post = ({ post }) => {
                     <Button
                         stuyle={{color: 'white'}}
                         size='small'
-                        onClick={() => {}}
+                        onClick={() => setCurrentId(post._id)}
                     >
                         <MoreHorizIcon fontSize='default' />
                     </Button>
