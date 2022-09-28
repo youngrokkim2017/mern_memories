@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { GoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
 import Input from './Input';
@@ -11,6 +12,7 @@ const Auth = () => {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignUp] = useState(false);
+    const dispatch = useDispatch()
 
     const handleSubmit = () => {
 
@@ -25,12 +27,23 @@ const Auth = () => {
     }
 
     const switchMode = () => {
-        setIsSignUp((prevIsSignup) => !prevIsSignup);
+        setIsSignUp((prevIsSignup) => !prevIsSignup)
         handleShowPassword(false)
     }
 
     const googleSuccess = (res) => {
-        console.log(res);
+        // console.log(res);
+        const result = res?.profileObj  // ?. operator that doesn't throw an error if there is no res object
+        const token = res?.tokenId
+
+        try {
+            dispatch({
+                type: 'AUTH',
+                data: { result, token }
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const googleFailure = () => {
