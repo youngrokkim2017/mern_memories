@@ -6,6 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(cors());
 
 // routes
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes)
 
 // mongodb atlas
 const CONNECTION_URL = process.env.MONGODB_URL
