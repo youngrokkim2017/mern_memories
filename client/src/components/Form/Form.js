@@ -46,6 +46,16 @@ const Form = ({ currentId, setCurrentId }) => {
             selectedFile: '',
         })
     }
+
+    if (!user?.result?.name) {
+        return (
+            <Paper className={classes.paper}>
+                <Typography variant='h6' align='center'>
+                    Please sign in
+                </Typography>
+            </Paper>
+        )
+    }
     
     return (
         <Paper className={classes.paper}>
