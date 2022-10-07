@@ -42,6 +42,8 @@ const Post = ({ post, setCurrentId }) => {
                 <Typography variant='body2'>
                     {moment(post.createdAt).fromNow()}
                 </Typography>
+            </div>
+            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
                 <div className={classes.overlay2}>
                     <Button
                         stuyle={{color: 'white'}}
@@ -51,41 +53,43 @@ const Post = ({ post, setCurrentId }) => {
                         <MoreHorizIcon fontSize='default' />
                     </Button>
                 </div>
-                <div className={classes.details}>
-                    <Typography variant='body2' color='textSecondary'>
-                        {post.tags.map((tag) => (
-                            `#${tag} `
-                        ))}
-                    </Typography>
-                </div>
-                <Typography 
-                    className={classes.title} 
-                    variant='h5' 
-                    gutterBottom
-                >
-                    {post.title}
+            )}
+            <div className={classes.details}>
+                <Typography variant='body2' color='textSecondary'>
+                    {post.tags.map((tag) => (
+                        `#${tag} `
+                    ))}
                 </Typography>
-                <CardContent>
-                    <Typography 
-                        variant='body2' 
-                        color='textSecondary' 
-                        component='p' 
-                    >
-                        {post.message}
-                    </Typography>
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                    <Button
-                        size='small'
-                        color='primary'
-                        disabled={!user?.result}
-                        onClick={() => dispatch(likePost(post._id))}
-                    >
-                        {/* <ThumbUpAltIcon fontSize='small' /> */}
-                        <Likes />
-                        &nbsp; Like &nbsp;
-                        {post.likeCount}
-                    </Button>
+            </div>
+            <Typography 
+                className={classes.title} 
+                variant='h5' 
+                gutterBottom
+            >
+                {post.title}
+            </Typography>
+            <CardContent>
+                <Typography 
+                    variant='body2' 
+                    color='textSecondary' 
+                    component='p' 
+                >
+                    {post.message}
+                </Typography>
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+                <Button
+                    size='small'
+                    color='primary'
+                    disabled={!user?.result}
+                    onClick={() => dispatch(likePost(post._id))}
+                >
+                    {/* <ThumbUpAltIcon fontSize='small' /> */}
+                    <Likes />
+                    &nbsp; Like &nbsp;
+                    {post.likeCount}
+                </Button>
+                {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
                     <Button
                         size='small'
                         color='primary'
@@ -94,8 +98,8 @@ const Post = ({ post, setCurrentId }) => {
                         <DeleteIcon fontSize='small' />
                         &nbsp; Delete
                     </Button>
-                </CardActions>
-            </div>
+                )}
+            </CardActions>
         </Card>
     )
 }
