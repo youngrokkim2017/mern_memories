@@ -6,6 +6,12 @@ import * as api from '../api';
 export const signin = (formData, history) => async (dispatch) => {
     try {
         //  log in user
+        const { data } = await api.signIn(FormData);
+
+        dispatch({
+            type: AUTH,
+            data
+        });
 
         // navigate to home page
         history.push('/')
@@ -17,6 +23,12 @@ export const signin = (formData, history) => async (dispatch) => {
 export const signup = (formData, history) => async (dispatch) => {
     try {
         //  sign up user
+        const { data } = await api.signUp(FormData);
+
+        dispatch({
+            type: AUTH,
+            data
+        });
 
         // navigate to home page
         history.push('/')
