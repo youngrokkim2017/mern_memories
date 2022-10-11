@@ -8,6 +8,8 @@ import Auth from './components/Auth/Auth';
 import PostItem from './components/PostItem/PostItem';
 
 const App = () => {
+    const user = JSON.parse(localStorage.getItem('profile'));
+
     return (
         <BrowserRouter>
             <Container maxwidth="xl">
@@ -17,7 +19,7 @@ const App = () => {
                     <Route path="/posts" exact component={Home} />
                     <Route path="/posts/search" exact component={Home} />
                     <Route path="/posts/:id" component={PostItem} />
-                    <Route path="/auth" exact component={Auth} />
+                    <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
                 </Switch>
             </Container>
         </BrowserRouter>
