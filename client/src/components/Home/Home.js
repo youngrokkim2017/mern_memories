@@ -7,7 +7,7 @@ import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles'
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
-import { getPosts } from '../../actions/posts';
+import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Paginate from '../Pagination';
 
 function useQuery() {
@@ -47,6 +47,7 @@ const Home = () => {
     const searchPost = () => {
         if (search.trim()) {
             // dispatch logic to fetch for search post with redux
+            dispatch(getPostsBySearch({ search, tags: tags.join(',') }))
         } else {
             history.push('/');
         }
