@@ -45,7 +45,7 @@ const Home = () => {
     }
 
     const searchPost = () => {
-        if (search.trim()) {
+        if (search.trim() || tags) {
             // dispatch logic to fetch for search post with redux
             dispatch(getPostsBySearch({ search, tags: tags.join(',') }))
         } else {
