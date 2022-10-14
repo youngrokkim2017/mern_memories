@@ -48,6 +48,7 @@ const Home = () => {
         if (search.trim() || tags) {
             // dispatch logic to fetch for search post with redux
             dispatch(getPostsBySearch({ search, tags: tags.join(',') }))
+            history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`)
         } else {
             history.push('/');
         }
