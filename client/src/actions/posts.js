@@ -2,10 +2,10 @@ import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE } from '../con
 import * as api from '../api';
 
 // action creators
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
     try {
         // gets data from reponse object
-        const { data } = await api.fetchPosts();
+        const { data } = await api.fetchPosts(page);
         dispatch({
             type: FETCH_ALL,
             payload: data

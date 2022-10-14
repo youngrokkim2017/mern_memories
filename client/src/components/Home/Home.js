@@ -25,9 +25,9 @@ const Home = () => {
     const page = query.get('page') || 1; // read url and see if there is a page parameter
     const searchQuery = query.get('searchQuery');
 
-    useEffect(() => {
-        dispatch(getPosts);
-    }, [currentId, dispatch])
+    // useEffect(() => {
+    //     dispatch(getPosts);
+    // }, [currentId, dispatch])
 
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {  // enter key code
@@ -95,7 +95,7 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId}/>
                         <Paper className={classes.pagination} elevation={6}>
-                            <Paginate />
+                            <Paginate page={page} />
                         </Paper>
                     </Grid>
                 </Grid>
