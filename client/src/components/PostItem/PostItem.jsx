@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 
-import useStyles from './styles'
+import useStyles from './styles';
+import { getPosts } from '../../actions/posts';
 
 const PostItem = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -12,6 +13,10 @@ const PostItem = () => {
     const history = useHistory();
     const classes = useStyles();
     const { id } = useParams();
+
+    useEffect(() => {
+        dispatch(getPost(id));
+    }, [id])
 
     return (
         <Paper
@@ -35,6 +40,7 @@ const PostItem = () => {
                     <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
                 </div>
             </div>
+            {/* recommended posts */}
         </Paper>
     )
 }
