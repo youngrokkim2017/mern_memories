@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
-import { getPosts } from '../../actions/posts';
+import { getPost } from '../../actions/posts';
 
 const PostItem = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -17,6 +17,16 @@ const PostItem = () => {
     useEffect(() => {
         dispatch(getPost(id));
     }, [id])
+
+    if (!post) return null;
+
+    if (isLoading) {
+        return (
+            <Paper className={classes.loadingPaper} elevation={6}>
+                <CircularProgress size="7em" />
+            </Paper>
+        )
+    }
 
     return (
         <Paper
