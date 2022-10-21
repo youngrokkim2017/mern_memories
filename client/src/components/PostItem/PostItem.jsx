@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
-import { getPost } from '../../actions/posts';
+import { getPost, getPostsBySearch } from '../../actions/posts';
 
 const PostItem = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -18,6 +18,12 @@ const PostItem = () => {
         dispatch(getPost(id));
     }, [id])
 
+    useEffect(() => {
+        if (post) {
+            dispatch(getPostsBySearch({ search: 'none', tags: posts?.tags.join(',') }))
+        }
+    }, [post])
+
     if (!post) return null;
 
     if (isLoading) {
@@ -27,6 +33,8 @@ const PostItem = () => {
             </Paper>
         )
     }
+
+    const recommendedPosts = post.filter(({ _id }) => _id !== post._id)
 
     return (
         <Paper
@@ -51,6 +59,19 @@ const PostItem = () => {
                 </div>
             </div>
             {/* recommended posts */}
+            {recommendedPosts.length && (
+                <div className={classes.section}>
+                    <Typography gutterBottom="h5">Recommended: </Typography>
+                    <Divider />
+                    <div className={classes.recommendedPosts}>
+                        {recommendedPosts.map(({ title, message, name, likes, selectedFile, _id }) => (
+                            <div>
+                                {title}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </Paper>
     )
 }
