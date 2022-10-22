@@ -65,8 +65,16 @@ const PostItem = () => {
                     <Divider />
                     <div className={classes.recommendedPosts}>
                         {recommendedPosts.map(({ title, message, name, likes, selectedFile, _id }) => (
-                            <div>
-                                {title}
+                            <div
+                                style={{ margin: '', cursor: 'pointer' }}
+                                onClick={() => openPost(_id)}
+                                key={_id}
+                            >
+                                <Typography variant='h6' gutterBottom>{title}</Typography>
+                                <Typography variant='subtitle2' gutterBottom>{name}</Typography>
+                                <Typography variant='subtitle2' gutterBottom>{message}</Typography>
+                                <Typography variant='subtitle1' gutterBottom>Likes: {likes.length}</Typography>
+                                <img src={selectedFile} width='200px' />
                             </div>
                         ))}
                     </div>
