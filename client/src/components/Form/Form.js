@@ -3,6 +3,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core'
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import { useSelector, useSelector } from 'react-redux';
+import { useHistory } from'react-router-dom';
 
 import useStyles from './styles';
 import { createPost, updatePost } from '../../actions/posts';
@@ -10,13 +11,14 @@ import { createPost, updatePost } from '../../actions/posts';
 const Form = ({ currentId, setCurrentId }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
     const [postData, setPostData] = useState({
         title: '',
         message: '',
         tags: '',
         selectedFile: '',
     })
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+    const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null);
     const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
@@ -29,7 +31,7 @@ const Form = ({ currentId, setCurrentId }) => {
         e.preventDefault();
 
         if (currentId) {
-            dispatch(updatedPost(currentId, { ...postData, name: user?.result?.name }));
+            dispatch(updatedPost(currentId, { ...postData, name: user?.result?.name }), history);
         } else {
             // dispatch(createPost(postData));
             dispatch(createPost({ ...postData, name: user?.result?.name }));
