@@ -1,5 +1,5 @@
 import { STATES } from 'mongoose';
-import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_POST, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes'; 
+import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_POST, CREATE, UPDATE, DELETE, LIKE, COMMENT } from '../constants/actionTypes'; 
 
 // reducer accepts state and action
 // based on action type, return the action or updated state
@@ -10,6 +10,19 @@ export default (state = [], action) => {
         case UPDATE:
         case LIKE:
             return state.map((post) => post._id === action.payload._id ? action.payload : post)
+        case COMMENT:
+            return {
+                ...state,
+                posts: state.posts.map((post) => {
+                    //  change only the post that just received comment
+                    if (post._id === action.payload._id) {
+                        return action.payload;
+                    } 
+                    
+                    //  return all other posts
+                    return post;
+                })
+            }
         case FETCH_ALL:
             // return action.payload;
             return {
