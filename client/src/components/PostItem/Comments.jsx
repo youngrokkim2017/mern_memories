@@ -11,6 +11,7 @@ const Comments = ({ post }) => {
     const [comment, setComment] = useState('');
     const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
+    const commentsRef = useRef();
 
     const handleClick = async () => {
         const finalComment = `${user.result.name}: ${comment}`;
@@ -19,6 +20,9 @@ const Comments = ({ post }) => {
 
         setComments(newComments);
         setComment('');
+
+        //  functionality to scroll down to most recent comment
+        commentsRef.current.scrollIntoView({ behavior: 'smooth' });
     }
 
     return (
@@ -33,6 +37,7 @@ const Comments = ({ post }) => {
                             {comment}
                         </Typography>
                     ))}
+                    <div ref={commentsRef} />
                 </div>
                 {user?.result?.name && (
                     <div style={{ width: '70%' }}>
