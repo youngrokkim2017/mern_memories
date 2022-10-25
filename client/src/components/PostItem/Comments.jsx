@@ -34,7 +34,8 @@ const Comments = ({ post }) => {
                     </Typography>
                     {comments.map((comment, i) => (
                         <Typography key={i} gutterBottom variant="subtitle1">
-                            {comment}
+                            <strong>{comment.split(': ')[0]}</strong>
+                            {comment.split(':')[1]}
                         </Typography>
                     ))}
                     <div ref={commentsRef} />
